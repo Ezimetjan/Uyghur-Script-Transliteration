@@ -5,6 +5,8 @@ function alphabetMap(keys, values) {
 function transliterate(subject, source, target) {
 	if (source == "UAA") {
 		return arabicToLatin(subject);
+	} else {
+		return latinToArabic(subject);
 	}
 }
 // Arabic Alphabet to Latin
@@ -18,7 +20,7 @@ function arabicToLatin(text) {
 		var result = mappedObject[value];
 		console.log(result + " " + value);
 
-		if (result == undefined || allspecial.includes(value)) {
+		if (result == null || allspecial.includes(value)) {
 			return total += value;
 		} else if (result.localeCompare("'") == 0) {
 			return total;
@@ -26,8 +28,56 @@ function arabicToLatin(text) {
 		return total += result;
 
 	}, "");
+	return output;
+}
+
+function latinToArabic(text) {
+	var alphabetMapped = alphabetMap(ULA, UAA)
+	var punctuationMapped = alphabetMap(RP, LP)
+	var preOutliers = ['s', 'n', 'z', 'g', 'c']
+	var postOutliers = ['g', 'h']
+
+	var mappedObject = Object.assign(alphabetMapped, punctuationMapped);
+
+	var output = text.toLowerCase().split('').reduce((total, value, index, array) => {
+			var result = mappedObject[value];
+			var previousCharacter = array[index - 1];
+			var nextCharacter = array[index + 1];
+			console.log(result + " " + value);
+			// Check if value is common punctuations, if true add value directly.
+			if (pspecial.includes(value)) {
+				return total += value;
+			}
+			//2
+			if (cspecial.includes(value)) {
+				if (previousCharacter == null || allspecial.includes(previousCharacter)) {
+					return total += 'ئ' + result;
+				}
+			}
+			//3
+			if (preoutliers.includes(value)) {
+				if (postOutliers.includes(nextCharacter)) {
+					var doubleCharacter = value + nextCharacter;
+					return total += mappedObject[doubleCharacter];
+				}
+			}
+			//4
+			if (postOutliers.includes(value)) {
+				if (preOutliers.includes(previousCharacter)) {
+					return total;
+				}
+			}
+			//5
+			if (result == null) {
+				return total += value;
+			}
+			return total += result;
+		},
+		"");
+	console.log(output);
 	return output
 }
+
 
 function convert() {
 	var subject = document.getElementById("source").value
@@ -105,9 +155,8 @@ sample_APS_text = "ha'mma' ada'm tughulushidinla a'rkin, izza't۔ho'rma't va' ho
 	"qol bash put ko'z jha'ngchi jhude san sa'y e shir shangxa'y kitab va'ta'n tomur ko'mu'r eliktir va'ta'n vyetnam shinjhang anar a'njhu'r orda urush o'rda'k u'zu'm elan inkas inik'ana a's'a't radio ma's'ul qario'ru'k nau'mid it'eyiq" +
 	"jha'm'iy na'ma'ngan o'zxan pasxa bayrimi jhungxua";
 
-(function() {
+(function () {
 	var sampleText = 'تالانتلىق شائىر، ئوت يۈرەك ئىنقىلابچى، مىللەت سۆيەر جەڭچى ئابدۇخالىق ئابدۇرەھمان ئوغلى ئۇيغۇر 1901-يىلى 2-ئاينىڭ 9-كۈنى تۇرپان شەھىرىنىڭ باغرى يېزىسىدا مەرىپەتپەرۋەر سودىگەر ئائىلىسىدە دۇنياغا كەلگەن.';
 	document.getElementById("source").value = sampleText;
 
 })();
-	 
