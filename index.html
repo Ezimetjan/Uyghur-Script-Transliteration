@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Uyghur Alphabet Transliteration</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <form class="content-wrapper">
+            <div class="row justify-content-md-center align-items-center  mt-5">
+                <div class="col-md-5 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Uyghur Arabic Alphabet</h4>
+                            <div class="form-group">
+                                <label for="source-script">Source Script Area</label>
+                                <textarea class="form-control text-right" id="source" rows="15">
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-0 p-0">
+                    <i class="fa fa-hand-o-right fa-3x align-self-stretch" aria-hidden="true"></i>
+                    </i>
+                </div>
+                <div class="col-md-5 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Uyghur Latin Alphabet</h4>
+                            <div class="form-group">
+                                <label for="target-script">Target Script Area</label>
+                                <textarea class="form-control " id="target" rows="15"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-md-center align-items-center mt-5">
+                <button type="button" class="btn btn-success pr-5 pl-5" onclick="convert()">Convert</button>
+            </div>
+        </form>
+    </div>
+    	<!-- Converter -->
+    <script type="text/javascript" src="assets/js/converter.js"></script>
+
+</body>
+</html>
